@@ -22,7 +22,7 @@ export default ({ slug_db }) => {
     }, []);
 
     return (
-        <div className="bg-transparent md:translate-y-[-60px]">
+        <div className="bg-transparent translate-y-[-60px]">
             <h2 className="ml-[30px] text-white text-2xl font-bold">{categoryTitle}</h2>
 
             <div className="ml-[30px] flex gap-3 overflow-x-hidden scroll-auto py-5">
