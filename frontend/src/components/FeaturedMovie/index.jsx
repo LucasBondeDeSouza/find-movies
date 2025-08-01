@@ -4,42 +4,39 @@ import Tmdb from "../../Tmdb.js";
 export default () => {
     const [trendingsList, setTrendingsList] = useState([]);
     const [featuredData, setFeaturedData] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(0); // Novo estado para controlar o índice
 
-    // Carrega a lista de originais apenas uma vez
     useEffect(() => {
         const loadTrendings = async () => {
-            let list = await Tmdb.getHomeList();
-            let trendings = list.find(i => i.slug === 'trendings');
-            if (trendings && trendings.items && trendings.items.results.length > 0) {
+            const list = await Tmdb.getHomeList();
+            const trendings = list.find(i => i.slug === 'trendings');
+            if (trendings && trendings.items?.results?.length > 0) {
                 setTrendingsList(trendings.items.results);
             }
         };
         loadTrendings();
     }, []);
 
-    // Troca o filme a cada 15 segundos
+    // Exibe o próximo filme a cada 10 segundos, em ordem
     useEffect(() => {
         if (trendingsList.length === 0) return;
 
-        const pickRandomFeatured = async () => {
-            let randomIndex = Math.floor(Math.random() * trendingsList.length);
-            let chosen = trendingsList[randomIndex];
-            let chosenInfo = await Tmdb.getMovieInfo(chosen.id, chosen.media_type);
-            setFeaturedData(chosenInfo);
+        const loadMovie = async () => {
+            const current = trendingsList[currentIndex];
+            const info = await Tmdb.getMovieInfo(current.id, current.media_type);
+            setFeaturedData(info);
         };
 
-        // Primeiro carregamento
-        pickRandomFeatured();
+        loadMovie();
 
-        // Intervalo para mudar a cada 10 segundos
-        const interval = setInterval(pickRandomFeatured, 10000);
+        const interval = setInterval(() => {
+            setCurrentIndex(prev => (prev + 1) % trendingsList.length);
+        }, 15000);
 
-        return () => clearInterval(interval); // Limpa o intervalo ao desmontar
-    }, [trendingsList]);
+        return () => clearInterval(interval);
+    }, [trendingsList, currentIndex]);
 
     if (!featuredData) return null;
-
-    console.log(featuredData)
 
     return (
         <div 
