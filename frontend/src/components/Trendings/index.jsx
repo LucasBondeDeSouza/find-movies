@@ -7,7 +7,6 @@ export default ({ slug_db }) => {
     const [categoryTitle, setCategoryTitle] = useState('');
     const [hoveredItemId, setHoveredItemId] = useState(null);
     const [isHovered, setIsHovered] = useState(false);
-    const [hasScrolled, setHasScrolled] = useState(false);
     const scrollRef = useRef(null);
 
     useEffect(() => {
@@ -23,25 +22,12 @@ export default ({ slug_db }) => {
         loadMovies();
     }, []);
 
-    // 👇 detecta scroll horizontal
-    useEffect(() => {
-        const handleScroll = () => {
-            if (scrollRef.current) {
-                setHasScrolled(scrollRef.current.scrollLeft > 0);
-            }
-        };
-
-        const scrollElement = scrollRef.current;
-        if (scrollElement) {
-            scrollElement.addEventListener("scroll", handleScroll);
-        }
-
-        return () => {
-            if (scrollElement) {
-                scrollElement.removeEventListener("scroll", handleScroll);
-            }
-        };
-    }, []);
+    const getItemMarginClass = (index, total) => {
+        let classes = '';
+        if (index === 0) classes += 'ml-[30px] ';
+        if (index === total - 1) classes += 'mr-[30px]';
+        return classes.trim();
+    };
 
     return (
         <>
@@ -54,12 +40,12 @@ export default ({ slug_db }) => {
             >
                 <div
                     ref={scrollRef}
-                    className={`${hasScrolled ? 'ml-0' : 'ml-[30px]'} flex gap-3 overflow-x-auto scroll-auto hide-scrollbar pt-5`}
+                    className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar pt-5"
                 >
                     {moviesList.map((item, index) => (
                         <div
                             key={item.id}
-                            className={`flex flex-col cursor-pointer hover:translate-y-[-10px] transition-all duration-200 ${index === moviesList.length - 1 ? 'mr-[30px]' : ''}`}
+                            className={`flex flex-col cursor-pointer hover:translate-y-[-10px] transition-all duration-200 ${getItemMarginClass(index, moviesList.length)}`}
                             onMouseEnter={() => setHoveredItemId(item.id)}
                             onMouseLeave={() => setHoveredItemId(null)}
                         >
