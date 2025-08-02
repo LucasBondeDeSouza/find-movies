@@ -32,6 +32,11 @@ export default {
                 items: await basicFetch(`/movie/top_rated?language=pt-BR&api_key=${API_KEY}&language=pt-BR&watch_region=BR`)
             },
             {
+                slug: 'movieposter',
+                title: 'Em Cartaz no Cinema',
+                items: await basicFetch(`/movie/now_playing?api_key=${API_KEY}&language=pt-BR`)
+            },
+            {
                 slug: 'action',
                 title: 'Ação',
                 items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=28&sort_by=popularity.desc`)
@@ -53,6 +58,7 @@ export default {
             }
         ]
     },
+
     getMovieInfo: async (movieId, type) => {
         let info = {}
 
