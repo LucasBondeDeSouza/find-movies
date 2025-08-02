@@ -1,11 +1,13 @@
 import React from "react"
 import FeaturedMovie from "./components/FeaturedMovie"
 import Trendings from "./components/Trendings"
+import Header from "./components/Header"
 
 export default () => {
 
   return (
-    <div className="bg-[#111]">
+    <div className="bg-[#111] relative">
+      <Header />
       <FeaturedMovie />
 
       <div className="bg-transparent translate-y-[-60px] lg:translate-y-[-80px]">
