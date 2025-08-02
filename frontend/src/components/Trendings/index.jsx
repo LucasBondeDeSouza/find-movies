@@ -56,10 +56,10 @@ export default ({ slug_db }) => {
                     ref={scrollRef}
                     className={`${hasScrolled ? 'ml-0' : 'ml-[30px]'} flex gap-3 overflow-x-auto scroll-auto hide-scrollbar pt-5`}
                 >
-                    {moviesList.map((item) => (
+                    {moviesList.map((item, index) => (
                         <div
                             key={item.id}
-                            className="flex flex-col cursor-pointer hover:translate-y-[-10px] transition-all duration-200"
+                            className={`flex flex-col cursor-pointer hover:translate-y-[-10px] transition-all duration-200 ${index === moviesList.length - 1 ? 'mr-[30px]' : ''}`}
                             onMouseEnter={() => setHoveredItemId(item.id)}
                             onMouseLeave={() => setHoveredItemId(null)}
                         >
