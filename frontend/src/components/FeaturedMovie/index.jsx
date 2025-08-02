@@ -64,7 +64,7 @@ export default () => {
                     <div className="flex">
                         <a 
                             href="/" 
-                            className="bg-white hover:opacity-70 text-[16px] md:text-[20px] font-bold py-[12px] px-[25px] rounded-[5px] opacity-[1] transition-all duration-300">+ Minha Lista
+                            className="bg-white hover:opacity-70 text-[16px] md:text-[20px] font-bold py-[10px] px-[20px] rounded-[5px] opacity-[1] transition-all duration-300">+ Minha Lista
                         </a>
                     </div>
 
