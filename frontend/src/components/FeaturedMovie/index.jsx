@@ -45,8 +45,8 @@ export default () => {
                 backgroundImage: `url(https://image.tmdb.org/t/p/original${featuredData.backdrop_path})`,
             }}
         >
-            <div className="gradient bg-gradient-to-b to-[#111] from-transparent" style={{ width: "inherit", height: "inherit" }}>
-                <div className="flex flex-col justify-center gap-[15px] pl-8 pb-36 pt-18 gradient bg-gradient-to-l to-[#111] from-transparent transition-all duration-900" style={{ width: "inherit", height: "inherit" }}>
+            <div className="gradient bg-gradient-to-b to-[#111] from-transparent inherit">
+                <div className="flex flex-col justify-center gap-[15px] pl-8 pb-36 pt-18 gradient bg-gradient-to-l to-[#111] from-transparent transition-all duration-900 inherit">
                     <p className="text-[40px] md:text-[60px] font-bold text-white">
                         {featuredData.name || featuredData.title}
                     </p>

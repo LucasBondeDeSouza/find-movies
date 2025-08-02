@@ -25,7 +25,7 @@ export default ({ slug_db }) => {
         <div>
             <h2 className="ml-[30px] text-white text-2xl font-bold">{categoryTitle}</h2>
 
-            <div className="ml-[30px] flex gap-3 overflow-x-hidden scroll-auto py-5">
+            <div className="ml-[30px] flex gap-3 overflow-x-auto scroll-auto hide-scrollbar py-5">
                 {moviesList.map((item) => (
                     <div
                         key={item.id}
