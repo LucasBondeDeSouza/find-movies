@@ -50,7 +50,7 @@ export default ({ slug_db }) => {
                             onMouseLeave={() => setHoveredItemId(null)}
                         >
                             <div
-                                className="h-50 md:h-65 w-35 md:w-45 rounded-sm hover:rounded-b-none bg-cover bg-center"
+                                className="h-50 md:h-65 w-35 md:w-45 hover:w-60 md:hover:w-100 rounded-sm hover:rounded-b-none bg-cover bg-center transition-all duration-500"
                                 style={{
                                     backgroundImage: `url(https://image.tmdb.org/t/p/original${item.poster_path})`,
                                 }}
