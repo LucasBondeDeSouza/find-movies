@@ -52,7 +52,7 @@ export default () => {
                     </p>
 
                     <div className="flex gap-[15px]">
-                        <p className="text-[16px] md:text-[18px] font-bold text-green-500">{featuredData.vote_average} pontos</p>
+                        <p className="text-[16px] md:text-[18px] font-bold text-green-500">{featuredData.vote_average.toFixed(1)} pontos</p>
                         <p className="text-[16px] md:text-[18px] font-bold text-white">{featuredData.first_air_date?.substring(0, 4) || featuredData.release_date?.substring(0, 4)}</p>
                         <p className="text-[16px] md:text-[18px] font-bold text-white">{featuredData.number_of_seasons && featuredData.number_of_seasons + ' temporada(s)'}</p>
                     </div>

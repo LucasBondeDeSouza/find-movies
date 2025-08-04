@@ -40,24 +40,35 @@ export default ({ slug_db }) => {
             >
                 <div
                     ref={scrollRef}
-                    className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar pt-5"
+                    className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar py-5"
                 >
                     {moviesList.map((item, index) => (
                         <div
                             key={item.id}
-                            className={`flex flex-col cursor-pointer hover:translate-y-[-10px] transition-all duration-200 ${getItemMarginClass(index, moviesList.length)}`}
+                            className={`relative flex flex-col cursor-pointer transition-all duration-200 ${getItemMarginClass(index, moviesList.length)} group`}
                             onMouseEnter={() => setHoveredItemId(item.id)}
                             onMouseLeave={() => setHoveredItemId(null)}
                         >
                             <div
-                                className="h-50 md:h-65 w-35 md:w-45 hover:w-60 md:hover:w-100 rounded-sm hover:rounded-b-none bg-cover bg-center transition-all duration-500"
+                                className={`h-50 md:h-65 w-35 md:w-45 group-hover:w-60 md:group-hover:w-100 rounded-sm bg-cover bg-center transition-all duration-500`}
                                 style={{
-                                    backgroundImage: `url(https://image.tmdb.org/t/p/original${item.poster_path})`,
+                                    backgroundImage: `url(https://image.tmdb.org/t/p/original${
+                                        hoveredItemId === item.id ? item.backdrop_path : item.poster_path
+                                    })`,
                                 }}
                             ></div>
 
-                            <div className={`bg-[#222] p-2 rounded-b-sm ${hoveredItemId === item.id ? 'opacity-100' : 'opacity-0'}`}>
-                                <p className="text-white text-sm">{item.name || item.title}</p>
+                            <div
+                                className={`absolute bottom-2 left-2 z-10 bg-black bg-opacity-60 px-2 py-1 rounded transition-opacity duration-300 ${
+                                    hoveredItemId === item.id ? 'opacity-100' : 'opacity-0'
+                                }`}
+                                >
+                                <p className="text-white text-sm font-medium">
+                                    {item.name || item.title}
+                                </p>
+                                <p className="text-yellow-400 text-xs font-semibold">
+                                    ⭐ {item.vote_average.toFixed(1)}
+                                </p>
                             </div>
                         </div>
                     ))}
