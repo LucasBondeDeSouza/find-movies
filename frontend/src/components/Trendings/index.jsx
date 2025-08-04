@@ -59,7 +59,7 @@ export default ({ slug_db }) => {
                             ></div>
 
                             <div
-                                className={`absolute bottom-2 left-2 z-10 bg-black bg-opacity-60 px-2 py-1 rounded transition-opacity duration-300 ${
+                                className={`absolute bottom-2 left-2 mr-2 z-10 bg-black bg-opacity-60 px-2 py-1 rounded transition-opacity duration-300 ${
                                     hoveredItemId === item.id ? 'opacity-100' : 'opacity-0'
                                 }`}
                                 >
