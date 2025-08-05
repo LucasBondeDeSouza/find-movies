@@ -9,14 +9,14 @@ export default () => {
             <FeaturedMovie />
     
             <div className="bg-transparent translate-y-[-60px] lg:translate-y-[-80px]">
-                <Trendings slug_db={"serie_netflix"} />
-                <Trendings slug_db={"filme_netflix"}  />
-                <Trendings slug_db={"toprated"}  />
-                <Trendings slug_db={"movieposter"}  />
-                <Trendings slug_db={"action"}  />
-                <Trendings slug_db={"comedy"}  />
-                <Trendings slug_db={"drama"}  />
-                <Trendings slug_db={"horror"}  />
+                <Trendings slug_db={"serie_netflix"} type={"tv"} />
+                <Trendings slug_db={"filme_netflix"} type={"movie"} />
+                <Trendings slug_db={"toprated"} type={"movie"} />
+                <Trendings slug_db={"movieposter"} type={"movie"} />
+                <Trendings slug_db={"action"} type={"movie"} />
+                <Trendings slug_db={"comedy"} type={"movie"} />
+                <Trendings slug_db={"drama"} type={"movie"} />
+                <Trendings slug_db={"horror"} type={"movie"} />
             </div>
         </div>
     )

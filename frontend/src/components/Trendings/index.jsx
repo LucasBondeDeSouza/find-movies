@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Tmdb from "../../Tmdb.js";
+import { Link } from "react-router-dom"
 import ScrollButton from "../ScrollButton";
 
-export default ({ slug_db }) => {
+export default ({ slug_db, type }) => {
     const [moviesList, setMoviesList] = useState([]);
     const [categoryTitle, setCategoryTitle] = useState('');
     const [hoveredItemId, setHoveredItemId] = useState(null);
@@ -43,7 +44,8 @@ export default ({ slug_db }) => {
                     className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar py-5"
                 >
                     {moviesList.map((item, index) => (
-                        <div
+                        <Link
+                            to={`/detail/${type}/${item.id}`}
                             key={item.id}
                             className={`relative flex flex-col cursor-pointer transition-all duration-200 ${getItemMarginClass(index, moviesList.length)} group`}
                             onMouseEnter={() => setHoveredItemId(item.id)}
@@ -70,7 +72,7 @@ export default ({ slug_db }) => {
                                     ⭐ {item.vote_average.toFixed(1)}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
