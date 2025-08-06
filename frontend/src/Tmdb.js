@@ -60,22 +60,37 @@ export default {
     },
 
     getMovieInfo: async (movieId, type) => {
-        let info = {}
+        let info = {};
 
-        if(movieId) {
-            switch(type) {
+        if (movieId) {
+            // Busca os dados principais do filme/série
+            switch (type) {
                 case 'movie':
-                    info = await basicFetch(`/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`)
-                break;
+                    info = await basicFetch(`/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+                    break;
                 case 'tv':
-                    info = await basicFetch(`/tv/${movieId}?language=pt-BR&api_key=${API_KEY}`)
-                break;
+                    info = await basicFetch(`/tv/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+                    break;
                 default:
-                    info = null
-                break;
+                    info = null;
+                    break;
+            }
+
+            // Busca os vídeos (trailers etc.)
+            const videos = await basicFetch(`/${type}/${movieId}/videos?api_key=${API_KEY}&language=pt-BR`);
+
+            // Filtra o trailer do YouTube (opcional: pode ajustar para pegar teaser, etc.)
+            if (videos?.results?.length > 0) {
+                const trailer = videos.results.find(
+                    video => video.type === 'Trailer' && video.site === 'YouTube'
+                );
+
+                if (trailer) {
+                    info.trailerUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
+                }
             }
         }
 
-        return info
+        return info;
     }
 }
