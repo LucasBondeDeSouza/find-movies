@@ -3,7 +3,7 @@ import Tmdb from "../../Tmdb.js";
 import { Link } from "react-router-dom"
 import ScrollButton from "../ScrollButton";
 
-export default ({ slug_db, type }) => {
+export default ({ slug_db, type, movieId }) => {
     const [moviesList, setMoviesList] = useState([]);
     const [categoryTitle, setCategoryTitle] = useState('');
     const [hoveredItemId, setHoveredItemId] = useState(null);
@@ -12,7 +12,7 @@ export default ({ slug_db, type }) => {
 
     useEffect(() => {
         const loadMovies = async () => {
-            let list = await Tmdb.getHomeList();
+            let list = await Tmdb.getHomeList(type, movieId);
             let category = list.find(i => i.slug === slug_db);
             if (category?.items?.results?.length > 0) {
                 setMoviesList(category.items.results);
@@ -21,7 +21,7 @@ export default ({ slug_db, type }) => {
         };
 
         loadMovies();
-    }, []);
+    }, [movieId]);
 
     const getItemMarginClass = (index, total) => {
         let classes = '';

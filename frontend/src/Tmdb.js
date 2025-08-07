@@ -9,7 +9,7 @@ const basicFetch = async (endpoint) => {
 }
 
 export default {
-    getHomeList: async () => {
+    getHomeList: async (type, movieId) => {
         return [
             {
                 slug: 'trendings',
@@ -55,6 +55,11 @@ export default {
                 slug: 'horror',
                 title: 'Terror',
                 items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=27&sort_by=popularity.desc`)
+            },
+            {
+                slug: 'similars',
+                title: 'Você também pode gostar',
+                items: await basicFetch(`/${type}/${movieId}/recommendations?language=pt-BR&api_key=${API_KEY}`)
             }
         ]
     },
