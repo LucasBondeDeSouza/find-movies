@@ -27,7 +27,7 @@ export default () => {
             {item && (
                 <>
                     <div 
-                        className="h-screen bg-cover bg-center"
+                        className="h-[90vh] md:h-screen bg-cover bg-center"
                         style={{
                             backgroundImage: item ? `url(https://image.tmdb.org/t/p/original${item.backdrop_path})` : 'none'
                         }}
@@ -45,7 +45,7 @@ export default () => {
                                 </div>
 
                                 <p className="text-[14px] md:text-[20px] text-gray-400 max-w-[100%] md:max-w-[60%] mr-[30px]">
-                                    {item.overview.length > 400 ? item.overview.slice(0, 400) + '...' : item.overview}
+                                    {item.overview.length > 350 ? item.overview.slice(0, 350) + '...' : item.overview}
                                 </p>
 
                                 <div className="flex gap-2">
