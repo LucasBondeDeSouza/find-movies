@@ -31,7 +31,7 @@ export default ({ seasons }) => {
                             {seasons.map((season, index) => (
                                 <div 
                                     key={season.id}
-                                    className={`relative flex flex-col cursor-pointer transition-all duration-200 ${getItemMarginClass(index, season.length)}`}
+                                    className={`relative flex flex-col cursor-pointer transition-all duration-200 ${getItemMarginClass(index, seasons.length)}`}
                                 >
                                     <div 
                                         className="h-75 w-50 rounded-sm bg-cover bg-center transition-all duration-500"
