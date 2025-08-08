@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Tmdb from "../../Tmdb.js";
 import { Link } from "react-router-dom"
 import ScrollButton from "../ScrollButton";
+import StarIcon from '@mui/icons-material/Star';
 
 export default ({ slug_db, type, movieId }) => {
     const [moviesList, setMoviesList] = useState([]);
@@ -68,8 +69,8 @@ export default ({ slug_db, type, movieId }) => {
                                 <p className="text-white text-sm font-medium">
                                     {item.name || item.title}
                                 </p>
-                                <p className="text-yellow-400 text-xs font-semibold">
-                                    ⭐ {item.vote_average.toFixed(1)}
+                                <p className="text-yellow-400 text-xs font-semibold flex items-center gap-1">
+                                    <StarIcon fontSize="inherit" /> {item.vote_average.toFixed(1)}
                                 </p>
                             </div>
                         </Link>

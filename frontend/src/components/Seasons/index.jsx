@@ -1,23 +1,37 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+
+import ScrollButton from "../ScrollButton";
 
 export default ({ seasons }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const scrollRef = useRef(null);
+
+    const getItemMarginClass = (index, total) => {
+        let classes = '';
+        if (index === 0) classes += 'ml-[30px] ';
+        if (index === total - 1) classes += 'mr-[30px]';
+        return classes.trim();
+    };
 
     return (
         <>
             {seasons && (
-                <div className="pl-[30px]">
-                    <h2 className="text-white text-2xl font-bold">Temporadas</h2>
+                <div>
+                    <h2 className="ml-[30px] text-white text-2xl font-bold">Temporadas</h2>
 
                     <div 
                         className="relative"
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
                     >
                         <div 
+                            ref={scrollRef}
                             className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar py-5"
                         >
-                            {seasons.map((season) => (
+                            {seasons.map((season, index) => (
                                 <div 
                                     key={season.id}
-                                    className={`relative flex flex-col cursor-pointer transition-all duration-200 group`}
+                                    className={`relative flex flex-col cursor-pointer transition-all duration-200 ${getItemMarginClass(index, season.length)}`}
                                 >
                                     <div 
                                         className="h-75 w-50 rounded-sm bg-cover bg-center transition-all duration-500"
@@ -37,8 +51,9 @@ export default ({ seasons }) => {
                                     </div>
                                 </div>
                             ))}
-                            
                         </div>
+
+                        <ScrollButton scrollRef={scrollRef} isHovered={isHovered} />
                     </div>
                 </div>
             )}
