@@ -97,5 +97,17 @@ export default {
         }
 
         return info;
+    },
+
+    getCategories: async (type) => {
+        let items = {}
+
+        if (type) {
+            items = await basicFetch(`/genre/${type}/list?api_key=${API_KEY}&language=pt-BR`)
+        } else {
+            items = null
+        }
+
+        return items
     }
 }

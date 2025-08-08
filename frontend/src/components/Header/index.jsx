@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom"
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ExploreIcon from '@mui/icons-material/Explore';
 
 export default () => {
 
@@ -15,9 +16,9 @@ export default () => {
                 <SearchIcon fontSize="medium" className="text-white" />
             </div>
 
-            <div className="text-white border p-1 rounded-full">
-                <SearchIcon fontSize="medium" className="text-white" />
-            </div>
+            <Link to={"/discover"} className="text-white border p-1 rounded-full">
+                <ExploreIcon fontSize="medium" className="text-white" />
+            </Link>
         </header>
     )
 }
