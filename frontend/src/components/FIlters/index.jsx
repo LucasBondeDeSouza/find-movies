@@ -35,7 +35,7 @@ export default () => {
                         ? "bg-blue-500 border-blue-500 text-white"
                         : "bg-transparent border-gray-500 text-gray-300 hover:bg-gray-700 hover:border-gray-400"
                     }`}
-                    onClick={() => {setType('movie'); setSelectedType('filme')}}>Filme</button>
+                    onClick={() => {setType('movie'); setSelectedType('filme'); setSelectedCategories([])}}>Filme</button>
 
                 <button 
                     className={`px-4 py-2 rounded-full border transition cursor-pointer 
@@ -43,7 +43,7 @@ export default () => {
                         ? "bg-blue-500 border-blue-500 text-white"
                         : "bg-transparent border-gray-500 text-gray-300 hover:bg-gray-700 hover:border-gray-400"
                     }`}
-                    onClick={() => {setType('tv'); setSelectedType('serie')}}>Série</button>
+                    onClick={() => {setType('tv'); setSelectedType('serie'); setSelectedCategories([])}}>Série</button>
             </div>
 
             <div className="p-6 text-white">
