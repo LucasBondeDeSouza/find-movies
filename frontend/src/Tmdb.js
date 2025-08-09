@@ -1,20 +1,30 @@
 const API_KEY = import.meta.env.VITE_API_KEY;
-const API_BASE = 'https://api.themoviedb.org/3'
-
+const API_BASE = 'https://api.themoviedb.org/3';
 
 const basicFetch = async (endpoint) => {
-    const req = await fetch(`${API_BASE}${endpoint}`)
-    const json = await req.json()
-    return json
-}
+    const req = await fetch(`${API_BASE}${endpoint}`);
+    const json = await req.json();
+    return json;
+};
+
+// Pega automaticamente todos os provedores brasileiros
+const getAllBrazilProviders = async () => {
+    const data = await basicFetch(`/watch/providers/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR`);
+    if (data?.results) {
+        return data.results.map(p => p.provider_id).join('|');
+    }
+    return '';
+};
 
 export default {
     getHomeList: async (type, movieId) => {
+        const allProviders = await getAllBrazilProviders();
+
         return [
             {
                 slug: 'trendings',
                 title: 'Trendings',
-                items: await basicFetch(`/trending/all/week?api_key=${API_KEY}&language=pt-BR`)
+                items: await basicFetch(`/trending/all/week?api_key=${API_KEY}&language=pt-BR&watch_region=BR`)
             },
             {
                 slug: 'serie_netflix',
@@ -29,46 +39,47 @@ export default {
             {
                 slug: 'toprated',
                 title: 'Em alta',
-                items: await basicFetch(`/movie/top_rated?language=pt-BR&api_key=${API_KEY}&language=pt-BR&watch_region=BR`)
+                items: await basicFetch(`/movie/top_rated?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_watch_providers=${allProviders}`)
             },
             {
                 slug: 'movieposter',
                 title: 'Em Cartaz no Cinema',
-                items: await basicFetch(`/movie/now_playing?api_key=${API_KEY}&language=pt-BR`)
+                items: await basicFetch(`/movie/now_playing?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_watch_providers=${allProviders}`)
             },
             {
                 slug: 'action',
                 title: 'Ação',
-                items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=28&sort_by=popularity.desc`)
+                items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=28&with_watch_providers=${allProviders}`)
             },
             {
                 slug: 'comedy',
                 title: 'Comédia',
-                items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=35&sort_by=popularity.desc`)
+                items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=35&with_watch_providers=${allProviders}`)
             },
             {
                 slug: 'drama',
                 title: 'Drama',
-                items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=18&sort_by=popularity.desc`)
+                items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=18&with_watch_providers=${allProviders}`)
             },
             {
                 slug: 'horror',
                 title: 'Terror',
-                items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=27&sort_by=popularity.desc`)
+                items: await basicFetch(`/discover/movie?api_key=${API_KEY}&language=pt-BR&watch_region=BR&with_genres=27&with_watch_providers=${allProviders}`)
             },
             {
                 slug: 'similars',
                 title: 'Você também pode gostar',
-                items: await basicFetch(`/${type}/${movieId}/recommendations?language=pt-BR&api_key=${API_KEY}`)
+                items: movieId
+                    ? await basicFetch(`/${type}/${movieId}/recommendations?api_key=${API_KEY}&language=pt-BR`)
+                    : { results: [] }
             }
-        ]
+        ];
     },
 
     getMovieInfo: async (movieId, type) => {
         let info = {};
 
         if (movieId) {
-            // Busca os dados principais do filme/série
             switch (type) {
                 case 'movie':
                     info = await basicFetch(`/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`);
@@ -81,15 +92,11 @@ export default {
                     break;
             }
 
-            // Busca os vídeos (trailers etc.)
             const videos = await basicFetch(`/${type}/${movieId}/videos?api_key=${API_KEY}&language=pt-BR`);
-
-            // Filtra o trailer do YouTube (opcional: pode ajustar para pegar teaser, etc.)
             if (videos?.results?.length > 0) {
                 const trailer = videos.results.find(
                     video => video.type === 'Trailer' && video.site === 'YouTube'
                 );
-
                 if (trailer) {
                     info.trailerUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
                 }
@@ -100,14 +107,17 @@ export default {
     },
 
     getCategories: async (type) => {
-        let items = {}
+        if (!type) return null;
+        return await basicFetch(`/genre/${type}/list?api_key=${API_KEY}&language=pt-BR`);
+    },
 
-        if (type) {
-            items = await basicFetch(`/genre/${type}/list?api_key=${API_KEY}&language=pt-BR`)
-        } else {
-            items = null
-        }
+    getMovieFilter: async (type, categories) => {
+        if (!type || categories.length === 0) return null;
 
-        return items
+        const allProviders = await getAllBrazilProviders();
+
+        return await basicFetch(
+            `/discover/${type}?api_key=${API_KEY}&language=pt-BR&with_genres=${categories.join(',')}&watch_region=BR&with_watch_providers=${allProviders}`
+        );
     }
-}
+};

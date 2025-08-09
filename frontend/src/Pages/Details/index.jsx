@@ -15,7 +15,7 @@ export default () => {
         const loadInfo = async () => {
             if (id && type) {
                 const info = await Tmdb.getMovieInfo(id, type);
-                setItem(info); // Aqui está o objeto do filme/série
+                setItem(info);
             }
         };
 

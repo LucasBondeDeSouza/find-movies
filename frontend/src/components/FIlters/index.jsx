@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Tmdb from "../../Tmdb.js";
 
-export default () => {
-    const [type, setType] = useState('')
-    const [selectedType, setSelectedType] = useState('')
+export default ({ type, setType, selectedCetegories, setSelectedCategories }) => {
+    const [selectedType, setSelectedType] = useState('filme')
     const [categories, setCategories] = useState([]);
-    const [selectedCetegories, setSelectedCategories] = useState([]);
 
     useEffect(() => {
         const loadCategories = async () => {
