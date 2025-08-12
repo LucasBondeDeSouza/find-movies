@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
-
+import React, { useRef, useState, useEffect } from "react";
 import ScrollButton from "../ScrollButton";
 
 export default ({ seasons }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [showLeft, setShowLeft] = useState(false);
+    const [showRight, setShowRight] = useState(false);
     const scrollRef = useRef(null);
 
     const getItemMarginClass = (index, total) => {
@@ -12,6 +13,18 @@ export default ({ seasons }) => {
         if (index === total - 1) classes += 'mr-[30px]';
         return classes.trim();
     };
+
+    const checkScrollButtons = () => {
+        if (!scrollRef.current) return;
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+        setShowLeft(scrollLeft > 0);
+        setShowRight(scrollLeft + clientWidth < scrollWidth - 1);
+    };
+
+    useEffect(() => {
+        checkScrollButtons();
+    }, [seasons]);
 
     return (
         <>
@@ -26,6 +39,7 @@ export default ({ seasons }) => {
                     >
                         <div 
                             ref={scrollRef}
+                            onScroll={checkScrollButtons}
                             className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar my-5"
                         >
                             {seasons.map((season, index) => (
@@ -53,10 +67,15 @@ export default ({ seasons }) => {
                             ))}
                         </div>
 
-                        <ScrollButton scrollRef={scrollRef} isHovered={isHovered} />
+                        <ScrollButton 
+                            scrollRef={scrollRef} 
+                            isHovered={isHovered} 
+                            showLeft={showLeft} 
+                            showRight={showRight} 
+                        />
                     </div>
                 </div>
             )}
         </>
-    )
-}
+    );
+};

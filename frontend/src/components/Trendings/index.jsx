@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Tmdb from "../../Tmdb.js";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import ScrollButton from "../ScrollButton";
 import StarIcon from '@mui/icons-material/Star';
 
@@ -9,6 +9,11 @@ export default ({ slug_db, type, movieId }) => {
     const [categoryTitle, setCategoryTitle] = useState('');
     const [hoveredItemId, setHoveredItemId] = useState(null);
     const [isHovered, setIsHovered] = useState(false);
+
+    // novos estados para controlar visibilidade dos botões
+    const [showLeft, setShowLeft] = useState(false);
+    const [showRight, setShowRight] = useState(false);
+
     const scrollRef = useRef(null);
 
     useEffect(() => {
@@ -20,9 +25,21 @@ export default ({ slug_db, type, movieId }) => {
                 setCategoryTitle(category.title);
             }
         };
-
         loadMovies();
     }, [movieId]);
+
+    // função que verifica se tem scroll disponível
+    const checkScrollButtons = () => {
+        if (!scrollRef.current) return;
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+        setShowLeft(scrollLeft > 0);
+        setShowRight(scrollLeft + clientWidth < scrollWidth - 1); // -1 evita bug de arredondamento
+    };
+
+    useEffect(() => {
+        checkScrollButtons();
+    }, [moviesList]);
 
     const getItemMarginClass = (index, total) => {
         let classes = '';
@@ -42,6 +59,7 @@ export default ({ slug_db, type, movieId }) => {
             >
                 <div
                     ref={scrollRef}
+                    onScroll={checkScrollButtons} // escuta rolagem
                     className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar mt-5"
                 >
                     {moviesList.map((item, index) => (
@@ -65,7 +83,7 @@ export default ({ slug_db, type, movieId }) => {
                                 className={`absolute bottom-2 left-2 mr-2 z-10 bg-black bg-opacity-60 px-2 py-1 rounded transition-opacity duration-300 ${
                                     hoveredItemId === item.id ? 'opacity-100' : 'opacity-0'
                                 }`}
-                                >
+                            >
                                 <p className="text-white text-sm font-medium">
                                     {item.name || item.title}
                                 </p>
@@ -77,7 +95,12 @@ export default ({ slug_db, type, movieId }) => {
                     ))}
                 </div>
 
-                <ScrollButton scrollRef={scrollRef} isHovered={isHovered} />
+                <ScrollButton
+                    scrollRef={scrollRef}
+                    isHovered={isHovered}
+                    showLeft={showLeft}
+                    showRight={showRight}
+                />
             </div>
         </div>
     );
