@@ -42,7 +42,7 @@ export default ({ slug_db, type, movieId }) => {
             >
                 <div
                     ref={scrollRef}
-                    className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar py-5"
+                    className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar my-5"
                 >
                     {moviesList.map((item, index) => (
                         <Link

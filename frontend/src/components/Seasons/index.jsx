@@ -26,7 +26,7 @@ export default ({ seasons }) => {
                     >
                         <div 
                             ref={scrollRef}
-                            className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar py-5"
+                            className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar my-5"
                         >
                             {seasons.map((season, index) => (
                                 <div 
