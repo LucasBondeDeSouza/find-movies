@@ -32,7 +32,7 @@ export default ({ slug_db, type, movieId }) => {
     };
 
     return (
-        <>
+        <div className="py-3">
             <h2 className="ml-[30px] text-white text-2xl font-bold">{categoryTitle}</h2>
 
             <div
@@ -42,7 +42,7 @@ export default ({ slug_db, type, movieId }) => {
             >
                 <div
                     ref={scrollRef}
-                    className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar my-5"
+                    className="flex gap-3 overflow-x-auto scroll-auto hide-scrollbar mt-5"
                 >
                     {moviesList.map((item, index) => (
                         <Link
@@ -79,6 +79,6 @@ export default ({ slug_db, type, movieId }) => {
 
                 <ScrollButton scrollRef={scrollRef} isHovered={isHovered} />
             </div>
-        </>
+        </div>
     );
 };
