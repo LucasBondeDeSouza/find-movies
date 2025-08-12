@@ -5,6 +5,7 @@ import Header from "./components/Header"
 import Home from "./Pages/Home"
 import Details from "./Pages/Details"
 import Discover from "./Pages/Discover"
+import Search from "./Pages/Search"
 
 export default () => {
 
@@ -15,6 +16,7 @@ export default () => {
         <Route path="/" element={<Home />} />
         <Route path="/detail/:type/:id" element={<Details />} />
         <Route path="/discover" element={<Discover />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   )

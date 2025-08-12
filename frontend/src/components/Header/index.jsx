@@ -12,9 +12,9 @@ export default () => {
                 <ArrowBackIcon fontSize="medium" className="text-white" />
             </Link>
 
-            <div className="text-white border p-1 rounded-full">
+            <Link to={"/search"} className="text-white border p-1 rounded-full">
                 <SearchIcon fontSize="medium" className="text-white" />
-            </div>
+            </Link>
 
             <Link to={"/discover"} className="text-white border p-1 rounded-full">
                 <ExploreIcon fontSize="medium" className="text-white" />

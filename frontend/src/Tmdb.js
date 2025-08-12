@@ -119,5 +119,24 @@ export default {
         return await basicFetch(
             `/discover/${type}?api_key=${API_KEY}&language=pt-BR&with_genres=${categories.join(',')}&watch_region=BR&with_watch_providers=${allProviders}`
         );
+    },
+
+    getMovieSearch: async (query) => {
+        if (!query || query.trim() === '') return { results: [] };
+
+        const data = await basicFetch(
+            `/search/multi?api_key=${API_KEY}&language=pt-BR&watch_region=BR&query=${encodeURIComponent(query)}`
+        );
+
+        if (data?.results) {
+            data.results = data.results
+                .filter(item => item.media_type === 'movie' || item.media_type === 'tv')
+                .map(item => ({
+                    ...item,
+                    type: item.media_type === 'movie' ? 'movie' : 'tv'
+                }));
+        }
+
+        return data;
     }
 };
