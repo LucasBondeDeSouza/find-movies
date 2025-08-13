@@ -1,24 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom"
 import SearchIcon from '@mui/icons-material/Search';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ExploreIcon from '@mui/icons-material/Explore';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 export default () => {
 
     return (
-        <header className="fixed top-0 left-0 right-0 px-6 py-2 flex justify-end gap-2 z-50">
-            <Link to={"/"} className="text-white border p-1 rounded-full">
-                <ArrowBackIcon fontSize="medium" className="text-white" />
+        <header className="fixed top-0 left-0 right-0 z-50 px-[30px] py-1 flex items-center justify-between bg-black/50 backdrop-blur-md border-b border-white/10 shadow-lg">
+
+            <Link to={"/"}>
+                <h1 className="text-2xl font-bold text-blue-500 tracking-wide">
+                    Find 
+                    <span className="text-red-500">Movie</span>
+                </h1>
             </Link>
 
-            <Link to={"/search"} className="text-white border p-1 rounded-full">
-                <SearchIcon fontSize="medium" className="text-white" />
-            </Link>
+            <div className="flex gap-3">
+                <Link to={"/search"} title={"Buscar"} className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition">
+                    <SearchIcon fontSize="medium" className="text-white" />
+                </Link>
 
-            <Link to={"/discover"} className="text-white border p-1 rounded-full">
-                <ExploreIcon fontSize="medium" className="text-white" />
-            </Link>
+                <Link to={"/discover"} title={"Descobrir"} className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition">
+                    <FilterAltIcon fontSize="medium" className="text-white" />
+                </Link>
+            </div>
         </header>
     )
 }

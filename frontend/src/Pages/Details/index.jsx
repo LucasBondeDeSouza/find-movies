@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import Tmdb from "../../Tmdb.js"
 
-import LanguageIcon from '@mui/icons-material/Language';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import MovieInfoIcon from '@mui/icons-material/Movie';
 import Trendings from "../../components/Trendings/index.jsx";
 import Seasons from "../../components/Seasons/index.jsx";
@@ -56,8 +56,8 @@ export default () => {
                                             rel="noopener noreferrer"
                                             className="flex items-center justify-center gap-2 bg-white hover:opacity-70 text-black text-[16px] md:text-[20px] font-bold py-[10px] px-[20px] rounded-[5px] transition-all duration-300"
                                         >
-                                            <LanguageIcon fontSize="medium" />
-                                            Página Oficial
+                                            <PlayArrowIcon fontSize="medium" />
+                                            Assistir
                                         </a>
                                     )}
 
