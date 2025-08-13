@@ -6,7 +6,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 export default () => {
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 px-[30px] py-1 flex items-center justify-between bg-black/50 backdrop-blur-md border-b border-white/10 shadow-lg">
+        <header className="fixed top-0 left-0 right-0 z-50 px-[30px] py-2 flex items-center justify-between bg-black/50 backdrop-blur-md border-b border-white/10 shadow-lg">
 
             <Link to={"/"}>
                 <h1 className="text-2xl font-bold text-blue-500 tracking-wide">
