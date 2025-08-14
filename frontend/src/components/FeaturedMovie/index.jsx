@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import InfoIcon from '@mui/icons-material/Info';
 import Tmdb from "../../Tmdb.js";
+import { Link } from "react-router-dom";
 
 export default () => {
     const [trendingsList, setTrendingsList] = useState([]);
@@ -24,7 +26,11 @@ export default () => {
         const loadMovie = async () => {
             const current = trendingsList[currentIndex];
             const info = await Tmdb.getMovieInfo(current.id, current.media_type);
-            setFeaturedData(info);
+            
+            setFeaturedData({ 
+                ...info, 
+                media_type: current.media_type 
+            });
         };
 
         loadMovie();
@@ -62,10 +68,12 @@ export default () => {
                     </p>
 
                     <div className="flex">
-                        <a 
-                            href="/" 
-                            className="bg-white hover:opacity-70 text-[16px] md:text-[20px] font-bold py-[10px] px-[20px] rounded-[5px] opacity-[1] transition-all duration-300">+ Minha Lista
-                        </a>
+                        <Link 
+                            to={`/detail/${featuredData.media_type}/${featuredData.id}`} 
+                            className="flex items-center justify-center gap-2 bg-white hover:opacity-70 text-black text-[16px] md:text-[20px] font-bold py-[10px] px-[20px] rounded-[5px] transition-all duration-300">
+                                <InfoIcon />
+                                Informação
+                        </Link>
                     </div>
 
                     <p className="text-[14px] md:text-[18px] text-gray-400">

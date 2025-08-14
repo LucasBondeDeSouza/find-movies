@@ -56,7 +56,7 @@ export default () => {
                                             rel="noopener noreferrer"
                                             className="flex items-center justify-center gap-2 bg-white hover:opacity-70 text-black text-[16px] md:text-[20px] font-bold py-[10px] px-[20px] rounded-[5px] transition-all duration-300"
                                         >
-                                            <PlayArrowIcon fontSize="medium" />
+                                            <PlayArrowIcon />
                                             Assistir
                                         </a>
                                     )}
