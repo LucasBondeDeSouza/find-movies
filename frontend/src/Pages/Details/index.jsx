@@ -4,12 +4,15 @@ import Tmdb from "../../Tmdb.js"
 
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import MovieInfoIcon from '@mui/icons-material/Movie';
+import GroupIcon from '@mui/icons-material/Group';
 import Trendings from "../../components/Trendings/index.jsx";
 import Seasons from "../../components/Seasons/index.jsx";
+import CastList from "../../components/CastList/index.jsx";
 
 export default () => {
     const { id, type } = useParams()
     const [item, setItem] = useState(null)
+    const [overlay, setOverlay] = useState(false)
 
     useEffect(() => {
         const loadInfo = async () => {
@@ -68,9 +71,16 @@ export default () => {
                                             rel="noopener noreferrer"
                                             className="w-[50px] h-[50px] flex items-center justify-center bg-red-600 hover:opacity-80 text-white rounded-full transition-all duration-300"
                                         >
-                                            <MovieInfoIcon fontSize="medium" />
+                                            <MovieInfoIcon />
                                         </a>
                                     )}
+
+                                    <div 
+                                        className="w-[50px] h-[50px] flex items-center justify-center bg-blue-600 hover:opacity-80 text-white rounded-full transition-all duration-300 cursor-pointer"
+                                        onClick={() => setOverlay(true)}
+                                    >
+                                        <GroupIcon />
+                                    </div>
                                 </div>
 
                                 <p className="text-[14px] md:text-[18px] text-gray-400">
@@ -87,6 +97,8 @@ export default () => {
                     </div>
                 </>
             )}
+
+            {overlay && <CastList setOverlay={setOverlay} type={type} movieId={item.id}  />}
         </div>
     )
 }
