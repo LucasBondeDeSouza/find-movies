@@ -43,7 +43,7 @@ export default () => {
                                 </p>
 
                                 <div className="flex gap-[15px]">
-                                    <p className="text-[16px] md:text-[18px] font-bold text-yellow-400 flex items-center gap-1"><StarIcon fontSize="medium" /> {item.vote_average.toFixed(1)}</p>
+                                    <p className="text-[16px] md:text-[18px] font-bold text-yellow-400 flex items-center gap-1"><StarIcon fontSize="small" /> {item.vote_average.toFixed(1)}</p>
                                     <p className="text-[16px] md:text-[18px] font-bold text-white">{item.first_air_date?.substring(0, 4) || item.release_date?.substring(0, 4)}</p>
                                     <p className="text-[16px] md:text-[18px] font-bold text-white">{item.number_of_seasons && item.number_of_seasons + ' temporada(s)'}</p>
                                 </div>
