@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import Tmdb from "../../Tmdb"
 
 export default ({ setOverlay, type, movieId }) => {
     const [item, setItem] = useState([])
+    const modalRef = useRef(null)
 
     useEffect(() => {
         const loadCast = async () => {
@@ -11,15 +12,29 @@ export default ({ setOverlay, type, movieId }) => {
                 setItem(cast.cast)
             }
         }
-
         loadCast()
     }, [type, movieId])
 
-    console.log(item)
+    // Detectar clique fora do modal
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                setOverlay(false)
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [setOverlay])
 
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-            <div className="bg-[#111] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 max-h-[80vh] overflow-y-auto">
+            <div
+                ref={modalRef}
+                className="bg-[#111] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 max-h-[80vh] overflow-y-auto"
+            >
                 <div className="sticky top-0 bg-[#111] flex justify-between items-center border-b p-4">
                     <h2 className="text-white text-lg font-bold">Elenco</h2>
                     <button
@@ -34,7 +49,7 @@ export default ({ setOverlay, type, movieId }) => {
                     {item.length > 0 ? (
                         item.map((actor) => (
                             <div key={actor.id} className="flex items-center gap-4">
-                                <div 
+                                <div
                                     className="size-15 rounded-full bg-cover bg-center"
                                     style={{
                                         backgroundImage: `url(https://image.tmdb.org/t/p/original${actor.profile_path})`
