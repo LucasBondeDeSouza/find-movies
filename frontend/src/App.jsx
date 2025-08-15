@@ -6,6 +6,7 @@ import Home from "./Pages/Home"
 import Details from "./Pages/Details"
 import Discover from "./Pages/Discover"
 import Search from "./Pages/Search"
+import NotFound from "./Pages/NotFound"
 
 export default () => {
 
@@ -17,6 +18,7 @@ export default () => {
         <Route path="/detail/:type/:id" element={<Details />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/search" element={<Search />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
