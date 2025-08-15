@@ -56,6 +56,7 @@ export default () => {
                                         <a
                                             href={item.homepage}
                                             target="_blank"
+                                            title="Assistir"
                                             rel="noopener noreferrer"
                                             className="flex items-center justify-center gap-2 bg-white hover:opacity-70 text-black text-[16px] md:text-[20px] font-bold py-[10px] px-[20px] rounded-[5px] transition-all duration-300"
                                         >
@@ -68,6 +69,7 @@ export default () => {
                                         <a
                                             href={item.trailerUrl}
                                             target="_blank"
+                                            title="Trailer"
                                             rel="noopener noreferrer"
                                             className="w-[50px] h-[50px] flex items-center justify-center bg-red-600 hover:opacity-80 text-white rounded-full transition-all duration-300"
                                         >
@@ -78,6 +80,7 @@ export default () => {
                                     <div 
                                         className="w-[50px] h-[50px] flex items-center justify-center bg-blue-600 hover:opacity-80 text-white rounded-full transition-all duration-300 cursor-pointer"
                                         onClick={() => setOverlay(true)}
+                                        title="Elenco"
                                     >
                                         <GroupIcon />
                                     </div>

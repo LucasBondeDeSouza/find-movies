@@ -26,9 +26,9 @@ export default () => {
         <header className={`fixed top-0 left-0 right-0 z-50 px-[30px] py-2 flex items-center justify-between transition duration-500 ${backgroundHeader && 'bg-black/50 backdrop-blur-md border-b border-white/10 shadow-lg'}`}>
 
             <Link to={"/"}>
-                <h1 className="text-2xl font-bold text-blue-500 tracking-wide">
+                <h1 className="text-2xl font-bold text-red-600 tracking-wide">
                     Find 
-                    <span className="text-red-500">Movie</span>
+                    <span className="text-blue-600">Movie</span>
                 </h1>
             </Link>
 
