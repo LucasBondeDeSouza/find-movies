@@ -16,7 +16,7 @@ export default () => {
 
             <Link
                 to="/"
-                className="mt-6 inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 transition-colors px-6 py-3 rounded-lg font-medium"
+                className="mt-6 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 transition-colors px-6 py-3 rounded-lg font-medium"
             >
                 Voltar para o início
             </Link>
