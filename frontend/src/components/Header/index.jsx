@@ -28,7 +28,7 @@ export default () => {
             <Link to={"/"}>
                 <h1 className="text-2xl font-bold text-red-600 tracking-wide">
                     Find 
-                    <span className="text-blue-600">Movie</span>
+                    <span className="text-blue-600">Movies</span>
                 </h1>
             </Link>
 
