@@ -21,7 +21,7 @@ export default () => {
 
     return (
         <div className="bg-[#111] min-h-screen">
-            <h1 className="ml-[30px] pt-[60px] text-white text-2xl font-bold">Pesquisar</h1>
+            <h1 className="ml-[30px] pt-[70px] text-white text-2xl font-bold">Pesquisar</h1>
 
             <div className="mx-[30px] mt-6">
                 <input 
