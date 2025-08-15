@@ -8,7 +8,7 @@ export default () => {
         <div className="bg-[#111]">
             <FeaturedMovie />
     
-            <div className="bg-transparent translate-y-[-60px] lg:translate-y-[-80px]">
+            <div className="bg-transparent translate-y-[-60px] lg:translate-y-[-100px]">
                 <Trendings slug_db={"serie_netflix"} type={"tv"} />
                 <Trendings slug_db={"filme_netflix"} type={"movie"} />
                 <Trendings slug_db={"toprated"} type={"movie"} />

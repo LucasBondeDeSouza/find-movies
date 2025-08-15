@@ -94,7 +94,7 @@ export default () => {
                         </div>
                     </div>
 
-                    <div className="bg-transparent translate-y-[-60px] lg:translate-y-[-80px]">
+                    <div className="bg-transparent translate-y-[-60px] lg:translate-y-[-100px]">
                         <Seasons seasons={item.seasons} />
 
                         <Trendings slug_db={"similars"} type={type} movieId={item.id} />
