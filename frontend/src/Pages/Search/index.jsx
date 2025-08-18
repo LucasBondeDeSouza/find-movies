@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react"
+
+import { useGlobalState } from "../../contexts/StateContext";
 import Tmdb from "../../Tmdb"
-import { Link } from "react-router-dom"
-import StarIcon from '@mui/icons-material/Star';
 import MovieGrid from "../../components/MovieGrid";
 
 export default () => {
+    const { setIsLoading } = useGlobalState();
     const [search, setSearch] = useState('')
     const [moviesList, setMoviesList] = useState([])
 
     useEffect(() => {
         const loadMovies = async () => {
+            setIsLoading(true)
             const items = await Tmdb.getMovieSearch(search)
+            setIsLoading(false)
             setMoviesList(items.results)
         }
 

@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
+
+import { useGlobalState } from "../../contexts/StateContext";
 import Tmdb from "../../Tmdb.js";
-import { Link } from "react-router-dom"
 import FIlters from "../../components/FIlters/index.jsx";
-import StarIcon from '@mui/icons-material/Star';
-import SearchOffIcon from '@mui/icons-material/SearchOff';
 import MovieGrid from "../../components/MovieGrid/index.jsx";
 
 export default () => {
+    const { setIsLoading } = useGlobalState();
     const [type, setType] = useState('movie')
     const [selectedCetegories, setSelectedCategories] = useState([]);
     const [moviesList, setMoviesList] = useState([])
 
     useEffect(() => {
         const loadMovies = async () => {
+            setIsLoading(true)
             const items = await Tmdb.getMovieFilter(type, selectedCetegories)
+            setIsLoading(false)
             setMoviesList(items.results)
         }
 

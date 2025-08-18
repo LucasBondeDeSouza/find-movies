@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import Tmdb from "../../Tmdb.js"
 
+import { useGlobalState } from "../../contexts/StateContext";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import MovieInfoIcon from '@mui/icons-material/Movie';
 import GroupIcon from '@mui/icons-material/Group';
@@ -11,6 +12,7 @@ import Seasons from "../../components/Seasons/index.jsx";
 import CastList from "../../components/CastList/index.jsx";
 
 export default () => {
+    const { setIsLoading } = useGlobalState();
     const { id, type } = useParams()
     const [item, setItem] = useState(null)
     const [overlay, setOverlay] = useState(false)
@@ -18,7 +20,9 @@ export default () => {
     useEffect(() => {
         const loadInfo = async () => {
             if (id && type) {
+                setIsLoading(true)
                 const info = await Tmdb.getMovieInfo(id, type);
+                setIsLoading(false)
                 setItem(info);
             }
         };

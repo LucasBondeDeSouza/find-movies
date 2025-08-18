@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
+
+import { useGlobalState } from "../../contexts/StateContext";
 import Tmdb from "../../Tmdb.js";
 import { Link } from "react-router-dom";
 import ScrollButton from "../ScrollButton";
 import StarIcon from '@mui/icons-material/Star';
 
 export default ({ slug_db, type, movieId }) => {
+    const { setIsLoading } = useGlobalState();
     const [moviesList, setMoviesList] = useState([]);
     const [categoryTitle, setCategoryTitle] = useState('');
     const [hoveredItemId, setHoveredItemId] = useState(null);
@@ -18,7 +21,9 @@ export default ({ slug_db, type, movieId }) => {
 
     useEffect(() => {
         const loadMovies = async () => {
+            setIsLoading(true)
             let list = await Tmdb.getHomeList(type, movieId);
+            setIsLoading(false)
             let category = list.find(i => i.slug === slug_db);
             if (category?.items?.results?.length > 0) {
                 setMoviesList(category.items.results);

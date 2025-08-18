@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
+
+import { useGlobalState } from "../../contexts/StateContext";
 import InfoIcon from '@mui/icons-material/Info';
 import StarIcon from '@mui/icons-material/Star';
 import Tmdb from "../../Tmdb.js";
 import { Link } from "react-router-dom";
 
 export default () => {
+    const { setIsLoading } = useGlobalState();
     const [trendingsList, setTrendingsList] = useState([]);
     const [featuredData, setFeaturedData] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0); // Novo estado para controlar o índice
 
     useEffect(() => {
         const loadTrendings = async () => {
+            setIsLoading(true)
             const list = await Tmdb.getHomeList();
+            setIsLoading(false)
             const trendings = list.find(i => i.slug === 'trendings');
             if (trendings && trendings.items?.results?.length > 0) {
                 setTrendingsList(trendings.items.results);
