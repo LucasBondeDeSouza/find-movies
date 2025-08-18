@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useRef } from "react"
 import Tmdb from "../../Tmdb"
+import { useGlobalState } from "../../contexts/StateContext";
 
 export default ({ setOverlay, type, movieId }) => {
+    const { setIsLoading } = useGlobalState();
     const [item, setItem] = useState([])
     const modalRef = useRef(null)
 
     useEffect(() => {
         const loadCast = async () => {
             if (movieId && type) {
+                setIsLoading(true)
                 const cast = await Tmdb.getMovieCast(movieId, type)
+                setIsLoading(false)
                 setItem(cast.cast)
             }
         }

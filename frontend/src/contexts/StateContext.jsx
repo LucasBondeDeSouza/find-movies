@@ -5,7 +5,7 @@ const StateContext = createContext();
 
 // Criar o provider que envolve a aplicação
 export const StateProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <StateContext.Provider value={{ isLoading, setIsLoading }}>
