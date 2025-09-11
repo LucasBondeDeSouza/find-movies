@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react"
 import Tmdb from "../../Tmdb"
-import { useGlobalState } from "../../contexts/StateContext";
+import { useUserContext} from "../../contexts/UserContext";
 
 export default ({ setOverlay, type, movieId }) => {
-    const { setIsLoading } = useGlobalState();
+    const { setIsLoading } = useUserContext();
     const [item, setItem] = useState([])
     const modalRef = useRef(null)
 

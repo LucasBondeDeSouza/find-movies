@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { useGlobalState } from "../../contexts/StateContext";
+import { useUserContext } from "../../contexts/UserContext.jsx";
 import InfoIcon from '@mui/icons-material/Info';
 import StarIcon from '@mui/icons-material/Star';
 import Tmdb from "../../Tmdb.js";
 import { Link } from "react-router-dom";
 
 export default () => {
-    const { setIsLoading } = useGlobalState();
+    const { setIsLoading } = useUserContext();
     const [trendingsList, setTrendingsList] = useState([]);
     const [featuredData, setFeaturedData] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0); // Novo estado para controlar o índice

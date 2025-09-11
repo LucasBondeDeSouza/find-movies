@@ -1,0 +1,79 @@
+import { Router } from "express";
+import MyList from "./model.js"
+import { JWTVerify } from "../../utils/jwt.js";
+import { connectDb } from "../../config/db.js";
+
+const router = Router()
+
+router.get("/", async (req, res) => {
+    connectDb()
+
+    const { id_movie, type } = req.query
+
+    try {
+        const { _id: owner } = await JWTVerify(req)
+
+        const existing = await MyList.findOne({
+            owner,
+            id_movie,
+            type
+        })
+
+        if (existing) {
+            return res.json({ added: true });
+        } else {
+            return res.json({ added: false });
+        }
+    } catch (error) {
+        console.error(error)
+        res.status(500).json("Deu erro ao adicionar um filme/série na sua lista", error)
+    }
+})
+
+router.post("/", async (req, res) => {
+    connectDb()
+
+    const { id_movie, type } = req.body
+
+    try {
+        const { _id: owner } = await JWTVerify(req)
+
+        const newMyListDoc = await MyList.create({
+            owner,
+            id_movie,
+            type
+        })
+
+        res.json(newMyListDoc)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json("Erro ao adicionar um filme/série na sua lista", error)
+    }
+})
+
+router.delete("/", async (req, res) => {
+    connectDb()
+
+    const { id_movie, type } = req.body;
+
+    try {
+        const { _id: owner } = await JWTVerify(req)
+
+        const deleted = await MyList.findOneAndDelete({
+            owner,
+            id_movie,
+            type
+        })
+
+        if (deleted) {
+            return res.json({ removed: true });
+        } else {
+            return res.status(404).json({ removed: false, message: "Filme/série não encontrado na lista" });
+        }
+    } catch (error) {
+        console.error(error)
+        res.status(500).json("Erro ao remover da lista", error)
+    }
+})
+
+export default router

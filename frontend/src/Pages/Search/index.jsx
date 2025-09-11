@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 
-import { useGlobalState } from "../../contexts/StateContext";
+import { useUserContext } from "../../contexts/UserContext";
 import Tmdb from "../../Tmdb"
 import MovieGrid from "../../components/MovieGrid";
 
 export default () => {
-    const { setIsLoading } = useGlobalState();
+    const { setIsLoading } = useUserContext();
     const [search, setSearch] = useState('')
     const [moviesList, setMoviesList] = useState([])
 

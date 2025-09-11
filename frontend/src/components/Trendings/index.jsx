@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { useGlobalState } from "../../contexts/StateContext";
+import { useUserContext } from "../../contexts/UserContext.jsx";
 import Tmdb from "../../Tmdb.js";
 import { Link } from "react-router-dom";
 import ScrollButton from "../ScrollButton";
 import StarIcon from '@mui/icons-material/Star';
 
 export default ({ slug_db, type, movieId }) => {
-    const { setIsLoading } = useGlobalState();
+    const { setIsLoading } = useUserContext();
     const [moviesList, setMoviesList] = useState([]);
     const [categoryTitle, setCategoryTitle] = useState('');
     const [hoveredItemId, setHoveredItemId] = useState(null);

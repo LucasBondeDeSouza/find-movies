@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { useGlobalState } from "../../contexts/StateContext";
+import { useUserContext } from "../../contexts/UserContext.jsx";
 import Tmdb from "../../Tmdb.js";
 import FIlters from "../../components/FIlters/index.jsx";
 import MovieGrid from "../../components/MovieGrid/index.jsx";
 
 export default () => {
-    const { setIsLoading } = useGlobalState();
+    const { setIsLoading } = useUserContext();
     const [type, setType] = useState('movie')
     const [selectedCetegories, setSelectedCategories] = useState([]);
     const [moviesList, setMoviesList] = useState([])
