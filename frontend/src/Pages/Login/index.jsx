@@ -18,7 +18,9 @@ export default () => {
             const { data: userDoc } = await axios.post("/users/login", {
                 email,
                 password
-            })
+            },
+            { withCredentials: true }
+            )
 
             setUser(userDoc)
             navigate("/")

@@ -19,7 +19,9 @@ export default () => {
                 name,
                 email,
                 password
-            })
+            },
+            { withCredentials: true }
+            )
 
             setUser(userDoc)
             navigate("/")
