@@ -3,12 +3,10 @@ import { Router } from "express"
 import { connectDb } from "../../config/db.js"
 import User from "./model.js"
 import bcrypt from "bcryptjs"
-import jwt from "jsonwebtoken"
 import { JWTSign, JWTVerify } from "../../utils/jwt.js"
 
 const router = Router()
 const bcryptSalt = bcrypt.genSaltSync()
-const { JWT_SECRET_KEY } = process.env
 
 router.get("/", async (req, res) => {
     connectDb()
@@ -46,7 +44,11 @@ router.post("/", async (req, res) => {
         try {
             const token = await JWTSign(newUserObj)
 
-            res.cookie("token", token).json(newUserObj)
+            res.cookie("token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            }).json(newUserObj)
         } catch (error) {
             res.status(500).json("Erro ao assinar com o JWT", error)
         }
@@ -73,7 +75,11 @@ router.post("/login", async (req, res) => {
                 try {
                     const token = await JWTSign(newUserObj)
 
-                    res.cookie("token", token).json(newUserObj)
+                    res.cookie("token", token, {
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV === "production",
+                        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+                    }).json(newUserObj)
                 } catch (error) {
                     res.status(500).json("Erro ao assinar com o JWT", error)
                 }
