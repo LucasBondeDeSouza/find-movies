@@ -76,4 +76,20 @@ router.delete("/", async (req, res) => {
     }
 })
 
+router.get("/all", async (req, res) => {
+    connectDb()
+
+    try {
+        const { _id: owner } = await JWTVerify(req)
+
+        const items = await MyList.find({ owner })
+            .select("created_at id_movie status type");
+
+        res.json(items)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json("Erro ao buscar a lista do usuário", error)
+    }
+})
+
 export default router

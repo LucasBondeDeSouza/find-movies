@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
+import MyListEditButton from "../MyListEditButton";
 
 export default ({ 
     moviesList = [], 
@@ -23,11 +24,18 @@ export default ({
                             className="flex flex-col"
                         >
                             <div
-                                className='aspect-[16/9] rounded-sm bg-cover bg-center hover:border border-white'
+                                className='relative aspect-[16/9] rounded-sm bg-cover bg-center hover:border border-white'
                                 style={{
                                     backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
                                 }}
-                            ></div>
+                            >
+                                {movie.status && (
+                                    <MyListEditButton 
+                                        initialStatus={movie.status} 
+                                        itemId={movie._id}
+                                    />
+                                )}
+                            </div>
 
                             <div className="flex flex-col">
                                 <p className="text-white font-bold">

@@ -20,7 +20,7 @@ export default ({ id_movie, type }) => {
 
                 setIsInMyList(res.data.added)
             } catch (error) {
-                console.log(error)
+                console.error(error)
             }
         }
     }

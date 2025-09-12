@@ -135,5 +135,15 @@ export default {
         }
 
         return data;
+    },
+
+    getMovieMyList: async (movieId, type, status) => {
+        if (!movieId || !type) return null;
+
+        const info = await basicFetch(`/${type}/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+        info.type = type;
+        info.status = status
+
+        return info;
     }
 };
