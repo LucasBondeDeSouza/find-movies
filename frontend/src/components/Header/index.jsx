@@ -6,7 +6,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PersonIcon from "@mui/icons-material/Person"
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 
 import { toast } from "react-toastify";
 import { useUserContext } from "../../contexts/UserContext";
@@ -89,7 +88,6 @@ export default () => {
                         onClick={() => setIsOpen((prev) => !prev)}
                     >
                         <PersonIcon fontSize="medium" className="text-white" />
-                        <ArrowDropDownIcon fontSize="small" />
 
                         {isOpen && (
                             <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-xl shadow-lg ring-1 ring-black/5 overflow-hidden">
