@@ -17,7 +17,7 @@ export default ({ initialStatus, itemId }) => {
     };
 
     return (
-        <div className="absolute bottom-1 right-1 z-50">
+        <div className="absolute bottom-1 right-1">
             {status === "planned" && <p className="text-sm text-white bg-red-600 py-0.5 px-1.5 rounded-xl">Não Assistido</p>}
             {status === "watching" && <p className="text-sm text-white bg-orange-600 py-0.5 px-1.5 rounded-xl">Assistindo</p>}
             {status === "watched" && <p className="text-sm text-white bg-green-600 py-0.5 px-1.5 rounded-xl">Assistido</p>}
