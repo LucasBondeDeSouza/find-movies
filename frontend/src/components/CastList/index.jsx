@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import Tmdb from "../../Tmdb"
 import { useUserContext} from "../../contexts/UserContext";
 
-export default ({ setOverlay, type, movieId }) => {
+export default ({ setShowCast, type, movieId }) => {
     const { setIsLoading } = useUserContext();
     const [item, setItem] = useState([])
     const modalRef = useRef(null)
@@ -23,7 +23,7 @@ export default ({ setOverlay, type, movieId }) => {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
-                setOverlay(false)
+                setShowCast(false)
             }
         }
 
@@ -31,7 +31,7 @@ export default ({ setOverlay, type, movieId }) => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside)
         }
-    }, [setOverlay])
+    }, [setShowCast])
 
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
@@ -42,7 +42,7 @@ export default ({ setOverlay, type, movieId }) => {
                 <div className="sticky top-0 bg-[#111] flex justify-between items-center border-b p-4">
                     <h2 className="text-white text-lg font-bold">Elenco</h2>
                     <button
-                        onClick={() => setOverlay(false)}
+                        onClick={() => setShowCast(false)}
                         className="text-white hover:text-gray-300 cursor-pointer"
                     >
                         ✕

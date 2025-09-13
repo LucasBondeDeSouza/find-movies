@@ -88,7 +88,8 @@ export default {
                 video => video.type === 'Trailer' && video.site === 'YouTube'
             );
             if (trailer) {
-                info.trailerUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
+                // info.trailerUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
+                info.trailer = trailer.key
             }
         }
 

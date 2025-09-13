@@ -11,12 +11,14 @@ import Trendings from "../../components/Trendings/index.jsx";
 import Seasons from "../../components/Seasons/index.jsx";
 import CastList from "../../components/CastList/index.jsx";
 import MyListButton from "../../components/MyListButton/index.jsx";
+import Trailer from "../../components/Trailer/index.jsx";
 
 export default () => {
     const { setIsLoading } = useUserContext();
     const { id, type } = useParams()
     const [item, setItem] = useState(null)
-    const [overlay, setOverlay] = useState(false)
+    const [showTrailer, setShowTrailer] = useState(false)
+    const [showCast, setShowCast] = useState(false)
 
     useEffect(() => {
         const loadInfo = async () => {
@@ -71,21 +73,19 @@ export default () => {
                                         </a>
                                     )}
 
-                                    {item.trailerUrl && (
-                                        <a
-                                            href={item.trailerUrl}
-                                            target="_blank"
+                                    {item.trailer && (
+                                        <button
                                             title="Trailer"
-                                            rel="noopener noreferrer"
-                                            className="w-[50px] h-[50px] flex items-center justify-center bg-red-600 hover:opacity-80 text-white rounded-full transition-all duration-300"
+                                            className="w-[50px] h-[50px] flex items-center justify-center bg-red-600 hover:opacity-80 text-white rounded-full transition-all duration-300 cursor-pointer"
+                                            onClick={() => setShowTrailer(true)}
                                         >
                                             <MovieInfoIcon />
-                                        </a>
+                                        </button>
                                     )}
 
                                     <div 
                                         className="w-[50px] h-[50px] flex items-center justify-center bg-blue-600 hover:opacity-80 text-white rounded-full transition-all duration-300 cursor-pointer"
-                                        onClick={() => setOverlay(true)}
+                                        onClick={() => setShowCast(true)}
                                         title="Elenco"
                                     >
                                         <GroupIcon />
@@ -106,10 +106,11 @@ export default () => {
 
                         <Trendings slug_db={"similars"} type={type} movieId={item.id} />
                     </div>
+
+                    {showTrailer && <Trailer setShowTrailer={setShowTrailer} trailer={item.trailer} />}
+                    {showCast && <CastList setShowCast={setShowCast} type={type} movieId={item.id} />}
                 </>
             )}
-
-            {overlay && <CastList setOverlay={setOverlay} type={type} movieId={item.id}  />}
         </div>
     )
 }
