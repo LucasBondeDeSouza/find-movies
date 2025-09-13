@@ -30,6 +30,25 @@ router.get("/", async (req, res) => {
     }
 })
 
+router.put("/", async (req, res) => {
+    connectDb()
+
+    const { id, status } = req.body
+
+    try {
+        const updated = await MyList.findByIdAndUpdate(
+            id, 
+            { status },
+            { new: true }
+        )
+
+        res.json(updated)
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erro ao atualizar status" });
+    }
+})
+
 router.post("/", async (req, res) => {
     connectDb()
 
@@ -83,7 +102,8 @@ router.get("/all", async (req, res) => {
         const { _id: owner } = await JWTVerify(req)
 
         const items = await MyList.find({ owner })
-            .select("created_at id_movie status type");
+            .select("created_at id_movie status type")
+            .sort({ created_at: -1 })
 
         res.json(items)
     } catch (error) {

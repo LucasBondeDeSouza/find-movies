@@ -2,14 +2,23 @@ import React, { useEffect, useState } from "react";
 import axios from "axios"
 import Tmdb from "../../Tmdb.js";
 
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext.jsx";
 
 import MovieGrid from "../../components/MovieGrid"
+import FiltersMyList from "../../components/FiltersMyList/index.jsx";
 
 export default () => {
     const { user, setIsLoading } = useUserContext();
-    const [myList, setMyList] = useState([]);
     const [myListDetails, setMyListDetails] = useState([]);
+    const [status, setStatus] = useState([])
+    const navigate = useNavigate()
+
+    // useEffect(() => {
+    //     if (!user) {
+    //     navigate("/");
+    //     }
+    // }, [user, navigate])
 
     useEffect(() => {
         const fetchMyList = async () => {
@@ -17,7 +26,6 @@ export default () => {
                 try {
                     setIsLoading(true);
                     const res = await axios.get("/my-list/all")
-                    setMyList(res.data)
 
                     const detailsPromises = res.data.map(item =>
                         Tmdb.getMovieMyList(item.id_movie, item.type, item.status)
@@ -44,7 +52,9 @@ export default () => {
 
     return (
         <div className="bg-[#111] min-h-screen">
-            <div className="py-10"></div>
+            <h1 className="ml-[30px] pt-[70px] text-white text-2xl font-bold">Minha Lista</h1>
+
+            <FiltersMyList />
 
             <MovieGrid moviesList={myListDetails} />
         </div>

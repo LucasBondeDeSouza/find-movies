@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useUserContext } from "../../contexts/UserContext.jsx";
 import Tmdb from "../../Tmdb.js";
-import FIlters from "../../components/FIlters/index.jsx";
+import Filters from "../../components/FIlters/index.jsx";
 import MovieGrid from "../../components/MovieGrid/index.jsx";
 
 export default () => {
@@ -27,7 +27,7 @@ export default () => {
         <div className="bg-[#111] min-h-screen">
             <h1 className="ml-[30px] pt-[70px] text-white text-2xl font-bold">Descobrir</h1>
 
-            <FIlters type={type} setType={setType} selectedCetegories={selectedCetegories} setSelectedCategories={setSelectedCategories} />
+            <Filters type={type} setType={setType} selectedCetegories={selectedCetegories} setSelectedCategories={setSelectedCategories} />
 
             <MovieGrid 
                 moviesList={moviesList} 
