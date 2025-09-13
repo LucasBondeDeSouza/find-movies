@@ -15,6 +15,12 @@ export default () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
+
+    useEffect(() => {
         const fetchMyList = async () => {
             if (user) {
                 try {

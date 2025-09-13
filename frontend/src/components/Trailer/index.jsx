@@ -32,7 +32,7 @@ export default ({ setShowTrailer, trailer }) => {
                 </div>
 
                 {/* Conteúdo do trailer */}
-                <div className="flex-1 p-3">
+                <div className="flex-1 px-3 pb-3">
                     <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
                         <iframe
                             className="absolute top-0 left-0 w-full h-full rounded-lg"
