@@ -11,7 +11,7 @@ const { PORT } = process.env
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin: "https://find-movies-zeta.vercel.app",
+    origin: "https://find-movies-zeta.vercel.app", // "http://localhost:5173",
     credentials: true,
 }))
 app.use("/users", UserRoutes)
